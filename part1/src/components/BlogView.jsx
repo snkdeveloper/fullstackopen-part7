@@ -10,7 +10,7 @@ import BlogForm from "../components/BlogForm";
 import Blog from "../components/Blog";
 import Notification from "../components/Notification";
 import Togglable from "../components/Togglable";
-import { getBlogs,setToken,create } from "../services/requests";
+import { getBlogs,setToken,create ,getUsers} from "../services/requests";
 import { useQueryClient } from "@tanstack/react-query";
 const BlogView = () => {
   // const [blogs, setBlogs] = useState([]);
@@ -21,6 +21,7 @@ const BlogView = () => {
     queryKey: ['blogs'],
     queryFn: getBlogs
   })
+  
   const config = {
     headers: { Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluMiIsImlkIjoiNjc4Mjg4ZjdlYTY3ZTg1YzI3ODRiYmYwIiwiaWF0IjoxNzM5NjE2NzgyfQ.8Zi59z_qdWjwX2pTOxPkoEXrcVtOwSoY00XBEi5bpvg" },
   }
@@ -32,6 +33,7 @@ const BlogView = () => {
   })
   
   const blogs = result.data
+  
   const [password, setPassword] = useState("");
   // const [user, setUser] = useState(null);
 
@@ -42,21 +44,7 @@ const BlogView = () => {
   //   blogService.getAll().then((blogs) => setBlogs(blogs));
   // }, []);
 
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem("loggedBlogeappUser");
-    
-    if (loggedUserJSON) {
-      console.log("wtf",loggedUserJSON);
-      const user2 = JSON.parse(loggedUserJSON);
-
-      // setUser(user2);
-      dispatch3({type:"change",payload:user2})
-      console.log("user2",user);
-    
-      setToken(user2.token)
-    }
-  }, []);
-
+ 
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
   const [author, setAuthor] = useState("");
@@ -66,7 +54,7 @@ const BlogView = () => {
   const handleBlog = async (event) => {
     event.preventDefault();
 
-    blogService.setToken(user.token);
+    setToken(user.token);
     try {
       if (title === "" || author === "" || url === "") {
         throw new Error("Boo");
@@ -90,90 +78,22 @@ const BlogView = () => {
         dispatch({type:"message",payload:null});
       }, 5000);
     } catch (exception) {
-      console.log(exception);
+     
       // setErrorMessage('Cannot Create Blog. Please check your entry and try again.')
       // setTimeout(() => {
       //   setErrorMessage(null)
       // }, 5000)
     }
   };
-  const handleLogin = async (event) => {
-    event.preventDefault();
-    try {
-      const user7 = await loginService.login({
-        username,
-        password,
-      });
-      window.localStorage.setItem("loggedBlogeappUser", JSON.stringify(user7));
-      console.log(user7.token);
-      blogService.setToken(user7.token);
-
-      dispatch3({type:"change",payload:user7})
-      setUsername("");
-      setPassword("");
-    } catch (exception) {
-      console.log(exception)
-      setErrorMessage("Wrong credentials");
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 5000);
-    }
-
-    dispatch({type:"message",payload:`Logged in`})
-    setTimeout(() => {
-      dispatch({type:"message",payload:null})
-    }, 5000);
-  };
-
-  const loginForm = () => (
-    <form onSubmit={handleLogin}>
-      <div>
-        username
-        <input
-          data-testid="username"
-          type="text"
-          value={username}
-          name="Username"
-          onChange={({ target }) => setUsername(target.value)}
-        />
-      </div>
-      <div>
-        password
-        <input
-          data-testid="password"
-          type="password"
-          value={password}
-          name="Password"
-          onChange={({ target }) => setPassword(target.value)}
-        />
-      </div>
-      <button type="submit">login</button>
-    </form>
-  );
+  
   const blogForm = () => <h2>Logged in</h2>;
 
-  if (user === null) {
-    return (
-      <div>
-        <Error message={errorMessage} />
-        <h2>Log in to application</h2>
-        {loginForm()}
-      </div>
-    );
-  }
-  const logout = () => {
-    localStorage.clear();
-    dispatch3({type:"change",payload:null});
-  };
+ 
+  
   blogs.sort((a, b) => (a.likes > b.likes ? -1 : b.likes > a.likes ? 1 : 0));
   return (
     <div>
-      <h2>blogs</h2>
-      <Notification message={notification} />
-      <Error message={errorMessage} />
-      <h4>
-        {user.name} logged in<button onClick={logout}> logout</button>
-      </h4>
+      <Notification message={notification}/>
       <Togglable buttonLabel="a new blog" ref={blogFormRef}>
         <BlogForm
           handleBlog={handleBlog}

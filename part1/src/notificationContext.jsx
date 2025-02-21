@@ -31,7 +31,7 @@ const notReducer = (state,action) =>{
     )
   }
 //   export const burn = () =>{
-//     console.log("b2")
+//    
 //     const [not, notDispatch] = useReducer(notReducer, null)
       
         

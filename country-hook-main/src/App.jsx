@@ -20,11 +20,11 @@ const useCountry = (name) => {
   const [countries, setCountries] = useState([]) 
   const [country, setCountry] = useState(null)
   const hook = () => {
-    console.log('effect')
+   
     axios
       .get('https://studies.cs.helsinki.fi/restcountries/api/all')
       .then(response => {
-        console.log('promise fulfilled')
+       
         setCountries(response.data)
       })
   }
@@ -32,9 +32,9 @@ const useCountry = (name) => {
   useEffect(hook, [])
   
   // useEffect(() => {})
-  // console.log(countries)
+  //
   // for(let country in countries){
-  //   console.log(country)
+  //  
   // }
   const find = () =>{
     let countryToShow = null
@@ -49,7 +49,7 @@ const useCountry = (name) => {
     return null
   }
  
-  console.log(countryToShow)
+ 
   if(countryToShow==null){
      country2 = {
       data:null,
@@ -77,7 +77,7 @@ const useCountry = (name) => {
 }
 
 const Country = ({ country }) => {
-  console.log("boo", country)
+ 
   if (!country) {
     return null
   }

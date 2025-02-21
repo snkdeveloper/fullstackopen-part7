@@ -19,11 +19,11 @@ const useResource =  (baseUrl) => {
   const [resources, setResources] = useState([])
   const [update,setUpdate] = useState(false)
   const hook = () => {
-    console.log('effect')
+   
     axios
       .get(baseUrl)
       .then(response => {
-        console.log('promise fulfilled')
+       
         setResources(response.data)
       })
   }
