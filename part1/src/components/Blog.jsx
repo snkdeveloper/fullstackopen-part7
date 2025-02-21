@@ -1,5 +1,6 @@
 import { useState } from "react";
 import blogService from "D:\\Projects\\fullstack\\fullstackopen-part5\\part1\\src\\services\\blogs.js";
+import { Link } from "react-router-dom";
 const Blog = ({ blog, user }) => {
   const [view, setView] = useState(false);
   const [like, setLike] = useState(false);
@@ -68,10 +69,12 @@ const Blog = ({ blog, user }) => {
 
   return (
     <div style={blogStyle}>
+      <Link to={`/collection/${blog.id}`}>
       {blog.title}
-      <button onClick={onChange} name="view">
+      </Link>
+      {/* <button onClick={onChange} name="view">
         view
-      </button>
+      </button> */}
     </div>
   );
 };
