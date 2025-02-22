@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-
+import { Input } from "../styles/styles";
+import { Button } from "../styles/styles";
 const BlogForm = ({
   handleBlog,
   title,
@@ -11,11 +12,11 @@ const BlogForm = ({
 }) => {
   return (
     <div>
-      <h3>create new</h3>
+      <h2>Create New</h2>
       <form onSubmit={handleBlog}>
         <div>
-          title
-          <input
+          Title
+          <Input
             data-testid="title"
             type="text"
             value={title}
@@ -24,8 +25,8 @@ const BlogForm = ({
           />
         </div>
         <div>
-          author
-          <input
+          Author
+          <Input
             data-testid="author"
             type="text"
             value={author}
@@ -34,8 +35,8 @@ const BlogForm = ({
           />
         </div>
         <div>
-          url
-          <input
+          Url
+          <Input
             data-testid="url"
             type="text"
             value={url}
@@ -43,7 +44,7 @@ const BlogForm = ({
             onChange={({ target }) => setUrl(target.value)}
           />
         </div>
-        <button type="submit">Create</button>
+        <Button type="submit">Create</Button>
       </form>
     </div>
   );

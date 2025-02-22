@@ -15,8 +15,11 @@ import { useQuery, useMutation } from '@tanstack/react-query'
 import Home from './components/Home'
 import User from './components/User'
 import AdvancedBlog from './components/AdvancedBlog'
-
-
+import { Footer } from './styles/styles'
+import { Navigation } from './styles/styles'
+import { Header } from './styles/styles'
+import { Button } from './styles/styles'
+import { Username } from './styles/styles'
   
 const App = () => {
   const match = useMatch('/users/:id')
@@ -33,7 +36,9 @@ const App = () => {
   const [notification,dispatch,user,dispatch3] = useContext(notContext)
   const [isLoading, setIsLoading] = useState(true)
   const padding = {
-    padding: 5
+    padding: 5,
+    textDecoration:'none'
+    
   }
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedBlogeappUser");
@@ -80,25 +85,27 @@ const App = () => {
 
   return (
     <div>
-      <h2>blogs</h2>
+      <Header>
+      <h2>MERN COLLECTION OF BLOGS</h2>
+      </Header>
       {/* <Notification message={notification} />
       <Error message={errorMessage} /> */}
       
      
     
-      <div>
-        <Link style={padding} to="/">home</Link>
-        <Link style={padding} to="/users">users</Link>
+      <Navigation>
+        <Link style={padding} to="/">Home</Link>
+        <Link style={padding} to="/users">Users</Link>
         <Link style={padding} to="/collection">Collection</Link>
 
         
         {/* <Link style={padding} to="/notes">notes</Link>
         <Link style={padding} to="/users">users</Link> */}
           {user
-      ? <em>{user.name} logged in<button onClick={logout}>log out</button></em>
-      : <Link style={padding} to="/login">login</Link>
+      ? <em><Username>{user.name} logged in</Username><Button onClick={logout}>log out</Button></em>
+      : <Link style={padding} to="/login">Login</Link>
     }
-      </div>
+      </Navigation>
      
       <Routes>
         {/* <Route path="/notes" element={<Notes />} />
@@ -114,7 +121,7 @@ const App = () => {
         
   
       <div>
-        <i>Blogs app, Department of Computer Science 2024</i>
+        <Footer>Blogs app, Department of Computer Science 2024</Footer>
       </div>
     
     

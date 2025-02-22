@@ -16,8 +16,10 @@ import Notification from "../components/Notification";
 import Togglable from "../components/Togglable";
 import { getBlogs,setToken,create } from "../services/requests";
 import { useQueryClient } from "@tanstack/react-query";
+import { Button } from '../styles/styles';
+import { Input } from '../styles/styles';
+import { Page } from '../styles/styles';
 
-  
 const Login = () =>{
     const navigate = useNavigate()
     const [username, setUsername] = useState("");
@@ -97,8 +99,8 @@ const Login = () =>{
       const loginForm = () => (
         <form onSubmit={handleLogin}>
           <div>
-            username
-            <input
+            Username
+            <Input
               data-testid="username"
               type="text"
               value={username}
@@ -107,8 +109,8 @@ const Login = () =>{
             />
           </div>
           <div>
-            password
-            <input
+            Password
+            <Input
               data-testid="password"
               type="password"
               value={password}
@@ -116,15 +118,15 @@ const Login = () =>{
               onChange={({ target }) => setPassword(target.value)}
             />
           </div>
-          <button type="submit">login</button>
+          <Button type="submit">login</Button>
         </form>
       );
       return (
-        <div>
+        <Page>
           <Error message={errorMessage} />
           <h2>Log in to application</h2>
           {loginForm()}
-        </div>
+        </Page>
       );
 }
 

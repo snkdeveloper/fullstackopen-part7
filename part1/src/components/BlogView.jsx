@@ -12,11 +12,15 @@ import Notification from "../components/Notification";
 import Togglable from "../components/Togglable";
 import { getBlogs,setToken,create ,getUsers} from "../services/requests";
 import { useQueryClient } from "@tanstack/react-query";
+import { Page } from "../styles/styles";
+
+
 const BlogView = () => {
   // const [blogs, setBlogs] = useState([]);
   const queryClient = useQueryClient()
   const [username, setUsername] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+ 
   const result = useQuery({
     queryKey: ['blogs'],
     queryFn: getBlogs
@@ -93,7 +97,7 @@ const BlogView = () => {
   
   blogs.sort((a, b) => (a.likes > b.likes ? -1 : b.likes > a.likes ? 1 : 0));
   return (
-    <div>
+    <Page>
       <Notification message={notification}/>
       <Togglable buttonLabel="a new blog" ref={blogFormRef}>
         <BlogForm
@@ -110,7 +114,7 @@ const BlogView = () => {
       {blogs.map((blog) => (
         <Blog key={blog.id} blog={blog} user={user} />
       ))}
-    </div>
+    </Page>
   );
 };
 export default BlogView;

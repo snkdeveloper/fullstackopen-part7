@@ -3,7 +3,9 @@ import blogService from "D:\\Projects\\fullstack\\fullstackopen-part5\\part1\\sr
 import { Link } from "react-router-dom";
 import { useMatch } from "react-router-dom";
 import axios from 'axios'
-
+import { Button } from "../styles/styles";
+import { Input } from "../styles/styles";
+import { Page } from "../styles/styles";
 const AdvancedBlog = ({blog}) =>{
  
     let comments = blog.comments
@@ -49,14 +51,14 @@ const AdvancedBlog = ({blog}) =>{
 
    
     return(
-        <div>
+        <Page>
         <h1> Hi {blog.title}</h1>
         <p>
         <Link to={blog.url}>{blog.url}</Link> 
         </p>
         <p>
           likes <span name="like">{blog.likes}</span>{" "}
-         <button onClick={onLike}>like</button>
+         <Button onClick={onLike}>like</Button>
         </p>
         <p>
           added by {blog.author}
@@ -66,14 +68,14 @@ const AdvancedBlog = ({blog}) =>{
           </h4>
           <form onSubmit={onComment}>
             <div>
-            <input
+            <Input
             data-testid="comment"
             type="text"
             value={comment}
             name="Comment"
             onChange={({ target }) => setComment(target.value)}
           />
-            <button type="submit">add comment</button>
+            <Button type="submit">add comment</Button>
             </div>
 
           </form>
@@ -81,7 +83,7 @@ const AdvancedBlog = ({blog}) =>{
             {comments.map((comment,index)=><li key={index}>{comment}</li>)}
           </ul>
        
-        </div>
+        </Page>
     )
 }
 

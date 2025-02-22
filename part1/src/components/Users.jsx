@@ -1,6 +1,7 @@
 import { Routes,Route,Link ,useMatch} from "react-router-dom";
 import { getBlogs,setToken,create ,getUsers} from "../services/requests";
 import { useQuery, useMutation } from '@tanstack/react-query'
+import { Page } from "../styles/styles";
 
 const Users =()=>{
  
@@ -21,7 +22,7 @@ const Users =()=>{
 
     
     return (
-    <div>
+    <Page>
       
     <h2>Users</h2>
     
@@ -40,7 +41,7 @@ const Users =()=>{
         
        
     
-  </div>
+  </Page>
   
 )
 }

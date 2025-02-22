@@ -5,6 +5,11 @@ const Blog = ({ blog, user }) => {
   const [view, setView] = useState(false);
   const [like, setLike] = useState(false);
   const [test, setTest] = useState(false);
+  const padding = {
+    padding: 5,
+    textDecoration:'none'
+    
+  }
   const onChange = () => {
     setView(!view);
   };
@@ -69,7 +74,7 @@ const Blog = ({ blog, user }) => {
 
   return (
     <div style={blogStyle}>
-      <Link to={`/collection/${blog.id}`}>
+      <Link to={`/collection/${blog.id}`} style ={padding}>
       {blog.title}
       </Link>
       {/* <button onClick={onChange} name="view">

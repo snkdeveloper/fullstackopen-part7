@@ -1,6 +1,7 @@
+import { Page } from "../styles/styles"
 const Home =()=>{
     return (
-        <div>Welcome to Blogs App</div>
+        <Page>Welcome to Blogs App</Page>
     )
 }
 
