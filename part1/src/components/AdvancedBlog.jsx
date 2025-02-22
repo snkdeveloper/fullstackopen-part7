@@ -1,9 +1,37 @@
 import { useState } from "react";
 import blogService from "D:\\Projects\\fullstack\\fullstackopen-part5\\part1\\src\\services\\blogs.js";
 import { Link } from "react-router-dom";
-const AdvancedBlog = ({blog}) =>{
-    const comments = blog.comments
+import { useMatch } from "react-router-dom";
+import axios from 'axios'
 
+const AdvancedBlog = ({blog}) =>{
+ 
+    let comments = blog.comments
+   
+    
+    
+    const [comment,setComment] = useState("")
+    const [like, setLike] = useState(false);
+    const [test, setTest] = useState(false);
+    ;
+    const [id2,setId2] = useState(0)
+    const match2 = useMatch('/collection/:id')
+    const id = match2.params.id
+    
+    
+    const onComment = async(event) =>{
+      event.preventDefault();
+      const ncomment = {
+        "comment":comment
+      }
+      axios.post(`/api/blogs/${id}/comments`,ncomment)
+      comments = comments.push(comment)
+      setTest(!test)
+
+      
+
+       
+    }
      const onLike = () => {
          const nblog = {
            user: blog.user,
@@ -17,8 +45,7 @@ const AdvancedBlog = ({blog}) =>{
          blogService.update(blog.id, nblog);
          setLike(!like);
        };
-      const [like, setLike] = useState(false);
-      const [test, setTest] = useState(false);
+   
 
    
     return(
@@ -34,12 +61,26 @@ const AdvancedBlog = ({blog}) =>{
         <p>
           added by {blog.author}
         </p>
-        <p>
+        <h4>
           comments
+          </h4>
+          <form onSubmit={onComment}>
+            <div>
+            <input
+            data-testid="comment"
+            type="text"
+            value={comment}
+            name="Comment"
+            onChange={({ target }) => setComment(target.value)}
+          />
+            <button type="submit">add comment</button>
+            </div>
+
+          </form>
           <ul>
-            {comments.map(comment=><li>{comment}</li>)}
+            {comments.map((comment,index)=><li key={index}>{comment}</li>)}
           </ul>
-        </p>
+       
         </div>
     )
 }
