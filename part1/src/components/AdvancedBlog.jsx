@@ -2,6 +2,7 @@ import { useState } from "react";
 import blogService from "D:\\Projects\\fullstack\\fullstackopen-part5\\part1\\src\\services\\blogs.js";
 import { Link } from "react-router-dom";
 const AdvancedBlog = ({blog}) =>{
+    const comments = blog.comments
 
      const onLike = () => {
          const nblog = {
@@ -10,6 +11,7 @@ const AdvancedBlog = ({blog}) =>{
            author: blog.author,
            title: blog.title,
            url: blog.url,
+           comments:blog.comments
          };
          blog.likes = blog.likes + 1;
          blogService.update(blog.id, nblog);
@@ -31,6 +33,12 @@ const AdvancedBlog = ({blog}) =>{
         </p>
         <p>
           added by {blog.author}
+        </p>
+        <p>
+          comments
+          <ul>
+            {comments.map(comment=><li>{comment}</li>)}
+          </ul>
         </p>
         </div>
     )

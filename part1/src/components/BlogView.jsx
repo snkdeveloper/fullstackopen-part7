@@ -64,6 +64,7 @@ const BlogView = () => {
         author: author,
         url: url,
         likes: 0,
+        comments:[]
       };
 
       blogFormRef.current.toggleVisibility();
